@@ -7,9 +7,9 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
   	<ul class="navbar-nav">
-    	<a class="navbar-brand" href="/">BlockMedia</a>
+    	<router-link class="navbar-brand" to="/">BlockMedia</router-link>
     	<li class="nav-item">
-    		<a class="nav-link" href="#post">Create Post</a>
+    		<router-link class="nav-link" to="/create">Create Post</router-link>
     	</li>
     </ul>
   </div>
