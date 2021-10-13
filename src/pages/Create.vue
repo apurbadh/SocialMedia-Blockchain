@@ -20,7 +20,7 @@
 					alert("Very less characters !")
 					return
 				}
-				this.user_input = await this.BlockChain.methods.createPost(this.user_input).call()
+				this.user_input = await this.BlockChain.methods.createPost(this.user_input).send({from : web3.eth.accounts.givenProvider.selectedAddress})
 				console.log(this.user_input)
 
 			}
