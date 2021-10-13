@@ -33,12 +33,24 @@
 <template>
 	<div>
 		<h2 style="text-align: center;margin: 5rem;" v-if="count == 0">No Post Has Been Posted Yet</h2>
-		<div class="card" style="margin-left: 10rem;margin-right: 10rem; margin-top : 2rem" v-for="post in posts">
-			<div class="card-body">
-				{{ post.content }}
-			</div>
-		</div>
+		
 
+<div class="card" style="margin: 5rem" v-for="post in posts">
+  <div class="card-header">
+    {{ post.creator }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ post.content }} </h5>
+ 	<br>
+    <router-link :to="'/post/' + post.id" class="btn btn-primary">See Post</router-link>
+  </div>
+</div>	
 	</div>
 
 </template>
+<style type="text/css">
+	a{
+		text-decoration: none;
+		color:  black;
+	}
+</style>
