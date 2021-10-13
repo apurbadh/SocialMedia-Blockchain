@@ -13,7 +13,7 @@ contract BlockMedia {
 
   event PostCreated(
     uint id,
-    address creator,
+    address payable creator,
     string content,
     uint num_comment
 
@@ -21,7 +21,9 @@ contract BlockMedia {
 
   event PostTipped(
     uint id,
-    address payable creator
+    address payable creator,
+    string content,
+    uint tipAmount
   );
 
   uint public postCount = 0;
@@ -41,10 +43,9 @@ contract BlockMedia {
   {
     Post memory _post = posts[_id];
     address payable _creator = _post.creator;
-    address(_creator).transfer(msg.value);
-    _post.tipAmount = _post.tipAmount + msg.value;
+    _creator.transfer(msg.value);
     posts[_id] = _post;
-    emit PostTipped(_id, _creator);
+    emit PostTipped(_id, _creator, _post.content, _post.tipAmount);
 
 
   }

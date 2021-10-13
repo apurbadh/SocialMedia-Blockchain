@@ -10,6 +10,10 @@
 					post = await this.BlockChain.methods.posts(i).call();
 					this.posts.push(post)
 				}
+			},
+			async tipUser(id){
+
+				this.BlockChain.methods.tipPost(id).send({from : web3.eth.accounts.givenProvider.selectedAddress, value: window.web3.utils.toWei('0.001', 'Ether')})
 			}
 		},
 		setup(props){
@@ -42,7 +46,7 @@
   <div class="card-body">
     <h5 class="card-title">{{ post.content }} </h5>
  	<br>
-    <router-link :to="'/post/' + post.id" class="btn btn-primary">See Post</router-link>
+ 	<button class="btn btn-primary" @click="() => tipUser(post.id)">Tip Creator 0.001 ETH</button>
   </div>
 </div>	
 	</div>
