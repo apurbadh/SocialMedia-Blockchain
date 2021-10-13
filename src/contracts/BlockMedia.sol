@@ -5,16 +5,11 @@ contract BlockMedia {
 
   struct Post{
     uint id;
-    address creator;
+    address payable creator;
     string content;
-    uint num_comment;
+    uint tipAmount;
   }
 
-  struct Comment{
-    uint id;
-    address creator;
-    string comment;
-  }
 
   event PostCreated(
     uint id,
@@ -24,16 +19,14 @@ contract BlockMedia {
 
   );
 
-  event CommentPosted(
+  event PostTipped(
     uint id,
-    address creator,
-    string comment
+    address payable creator,
   );
 
   uint public postCount = 0;
 
   mapping (uint => Post) public posts;
-  mapping (uint => Comment[]) public comments;
 
   function createPost(string memory _content) public
   {
@@ -44,13 +37,15 @@ contract BlockMedia {
     emit PostCreated(postCount, msg.sender, _content, 0);
   }
 
-  function postComment(uint _id, string memory _comment) public
+  function tipPost(uint _id) public payable
   {
     Post memory _post = posts[_id];
-    _post.num_comment = _post.num_comment + 1;
-    comments[_id][_post.num_comment] = Comment(_post.num_comment, msg.sender, _comment);
+    address payable _creator = _post.creator;
+    address(_creator).transfer(msg.value);
+    _post.tipAmount = _post.tipAmount + msg.value;
     posts[_id] = _post;
-    emit CommentPosted(_id, msg.sender, _comment);
+    emit PostTipped(_id, _creator)
+
 
   }
 
