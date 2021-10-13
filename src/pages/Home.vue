@@ -4,6 +4,7 @@
 		methods : {
 			async getData(){
 				this.count = await this.BlockChain.methods.postCount().call()
+				console.log(this.count)
 			}
 		},
 		setup(props){

@@ -1,5 +1,5 @@
-const SocialMedia = artifacts.require("SocialMedia");
+const BlockMedia = artifacts.require("BlockMedia");
 
 module.exports = function (deployer) {
-  deployer.deploy(SocialMedia);
+  deployer.deploy(BlockMedia);
 };
