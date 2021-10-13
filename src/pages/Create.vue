@@ -11,7 +11,8 @@
 		},
 		data(){
 			return {
-				user_input : ""
+				user_input : "",
+				message : ""
 			}
 		},
 		methods : {
@@ -20,8 +21,9 @@
 					alert("Very less characters !")
 					return
 				}
-				this.user_input = await this.BlockChain.methods.createPost(this.user_input).send({from : web3.eth.accounts.givenProvider.selectedAddress})
-				console.log(this.user_input)
+				await this.BlockChain.methods.createPost(this.user_input).send({from : web3.eth.accounts.givenProvider.selectedAddress})
+				this.message = "Your post has been posted to the blockchain !"
+				this.user_input = ""
 
 			}
 		}
@@ -30,7 +32,9 @@
 
 <template>
 	<h2 style="text-align: center; margin: 2rem;">Create Post</h2>
-
+	<div style="display: flex;justify-content: center;margin: 2rem;">
+  		<div role="alert" class="alert alert-success" style="width: 40%" v-if="message">{{ message }}</div>
+	</div>
 	<div style="display: flex; justify-content: center;">
 		<input type="text" class="form-control" style="width: 40%;" placeholder="Write something" v-model="user_input">
 		<button class="btn btn-primary" @click="createPost">Create Post</button>
